@@ -7,7 +7,7 @@ use std::cell::Cell;
 use std::io;
 use std::rc::Rc;
 
-const APP_ID: &str = "org.koteya.pipemenu";
+const APP_ID: &str = "net.koteya.pipemenu";
 
 fn main() -> glib::ExitCode {
     let app = Application::builder().application_id(APP_ID).build();
