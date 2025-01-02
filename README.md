@@ -1,6 +1,6 @@
 # Pipemenu
 
-`GTK4` and `libadwaita` compatible `dmenu` alternative.
+Gnome (`GTK4` + `libadwaita`) compatible `dmenu` alternative.
 
 It is **not** application launcher. It accepts input from stdin, allows user to select desired entry, and returns that entry on stdout.
 
