@@ -146,7 +146,7 @@ fn connect_keyboard_controller(
     event_controller.connect_key_pressed(move |_, key, _, _| {
         match key {
             gdk::Key::Escape => {
-                std::process::exit(0);
+                std::process::exit(1);
             }
             gdk::Key::Down => {
                 let next_index = selected_entry.get() + 1;
