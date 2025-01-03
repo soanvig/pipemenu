@@ -2,7 +2,13 @@
 name = "pipemenu"
 version = "0.1.0"
 edition = "2021"
+description = "Gnome (GTK4 + libadwaita) dmenu alternative"
+license = "GPL-3.0"
+repository = "https://github.com/soanvig/pipemenu"
+readme = "README.md"
+keywords = ["gnome", "gtk", "dmenu", "adwaita", "gtk4"]
 
 [dependencies]
-adw = { version = "0.7.1", package = "libadwaita", features = ["v1_6"] }
-gtk = { version = "0.9.5", package = "gtk4", features = ["v4_16"] }
+adw = { version = "0.7.1", package = "libadwaita", features = ["v1_5"] }
+# v4_16 doesn't work on ubuntu-latest (github image)
+gtk = { version = "0.9.5", package = "gtk4", features = ["v4_14"] }

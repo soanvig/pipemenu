@@ -1,0 +1,19 @@
+name: pull_request
+
+on:
+  pull_request:
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - run: |
+          sudo apt update
+          sudo apt install build-essential libgtk-4-dev libadwaita-1-dev
+      - run: cargo build --release
