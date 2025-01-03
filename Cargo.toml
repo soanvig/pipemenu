@@ -10,5 +10,9 @@ keywords = ["gnome", "gtk", "dmenu", "adwaita", "gtk4"]
 
 [dependencies]
 adw = { version = "0.7.1", package = "libadwaita", features = ["v1_5"] }
+clap = { version = "4.5.23" }
 # v4_16 doesn't work on ubuntu-latest (github image)
 gtk = { version = "0.9.5", package = "gtk4", features = ["v4_14"] }
+
+[profile.release]
+lto = true
