@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-adw = { version = "0.7.1", package = "libadwaita", features = ["v1_6"] }
-gtk = { version = "0.9.5", package = "gtk4", features = ["v4_16"] }
+adw = { version = "0.7.1", package = "libadwaita", features = ["v1_5"] }
+# v4_16 doesn't work on ubuntu-latest (github image)
+gtk = { version = "0.9.5", package = "gtk4", features = ["v4_14"] }

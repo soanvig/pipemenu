@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
           toolchain: stable
           override: true
       - run: |
-          apt install libgtk-4-dev build-essential libadwaita-1-dev
-          cargo build --release
+          sudo apt update
+          sudo apt install build-essential libgtk-4-dev libadwaita-1-dev
+      - run: cargo build --release
