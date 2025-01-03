@@ -8,6 +8,16 @@ It is **not** application launcher. It accepts input from stdin, allows user to 
 
 Currently only installation through `cargo` is possible.
 
+### Prebuilt binary
+
+Navigate to [Releases](https://github.com/soanvig/pipemenu/releases) and download a released binary (`pipemenu_vx.x.x_linux-64bit`)
+
+After that you need to:
+
+1. rename the binary to `pipemenu`
+2. make it executable: `chmod +x pipemenu`
+3. move it to a location included in your `$PATH` environment variable (for example: `/usr/local/bin` [requires sudo]. To check available paths use your terminal: `echo $PATH`)
+
 ### Rust/Cargo
 
 Install dependencies listed in [Development section](#development) (`cargo` builds package on your system), and then:
