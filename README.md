@@ -14,8 +14,6 @@ ls | pipemenu | xargs xdg-open
 
 ## Installation
 
-Currently only installation through `cargo` is possible.
-
 ### Prebuilt binary
 
 Navigate to [Releases](https://github.com/soanvig/pipemenu/releases) and download a released binary (`pipemenu_vx.x.x_linux-64bit`)
