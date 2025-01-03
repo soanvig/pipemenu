@@ -4,6 +4,14 @@ Gnome (`GTK4` + `libadwaita`) compatible `dmenu` alternative.
 
 It is **not** application launcher. It accepts input from stdin, allows user to select desired entry, and returns that entry on stdout.
 
+## Usage
+
+```sh
+ls | pipemenu | xargs xdg-open
+```
+
+![alt text](screenshot.png)
+
 ## Installation
 
 Currently only installation through `cargo` is possible.
@@ -25,14 +33,6 @@ Install dependencies listed in [Development section](#development) (`cargo` buil
 ```sh
 cargo install pipemenu
 ```
-
-## Usage
-
-```sh
-ls | pipemenu | xargs xdg-open
-```
-
-![alt text](screenshot.png)
 
 ## Roadmap
 
