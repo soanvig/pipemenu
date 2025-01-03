@@ -1,5 +1,6 @@
 use adw::{glib, Application, ApplicationWindow};
 use adw::{prelude::*, HeaderBar};
+use clap::Command;
 use gtk::{
     gdk, Align, Box, Entry, Label, ListBox, ListBoxRow, Orientation, PolicyType, ScrolledWindow,
 };
@@ -8,8 +9,16 @@ use std::io;
 use std::rc::Rc;
 
 const APP_ID: &str = "net.koteya.pipemenu";
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn main() -> glib::ExitCode {
+    let _cli = Command::new("pipemenu")
+        .author("https://github.com/soanvig/pipemenu")
+        .version(VERSION)
+        .about("Gnome (GTK4 + libadwaita) dmenu alternative")
+        .override_usage("<stdin> | pipemenu\tEXAMPLE: ls | pipemenu")
+        .get_matches();
+
     let app = Application::builder().application_id(APP_ID).build();
     app.connect_activate(build_ui);
     app.run()
