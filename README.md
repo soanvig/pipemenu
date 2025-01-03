@@ -4,6 +4,18 @@ Gnome (`GTK4` + `libadwaita`) compatible `dmenu` alternative.
 
 It is **not** application launcher. It accepts input from stdin, allows user to select desired entry, and returns that entry on stdout.
 
+## Installation
+
+Currently only installation through `cargo` is possible.
+
+### Rust/Cargo
+
+Install dependencies listed in [Development section](#development) (`cargo` builds package on your system), and then:
+
+```sh
+cargo install pipemenu
+```
+
 ## Usage
 
 ```sh
