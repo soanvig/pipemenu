@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          release-type: rust
+      # The logic below handles the crate publication:
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - run: |
+          sudo apt update
+          sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
+          cargo build --release
+      - run: cargo publish --token ${CRATES_TOKEN}
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          CRATES_TOKEN: ${{secrets.CRATES_TOKEN}}
