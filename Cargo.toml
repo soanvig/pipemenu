@@ -1,6 +1,6 @@
 [package]
 name = "pipemenu"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "Gnome (GTK4 + libadwaita) dmenu alternative"
 license = "GPL-3.0"
