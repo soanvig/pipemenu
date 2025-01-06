@@ -1,6 +1,6 @@
 use adw::{glib, Application, ApplicationWindow};
 use adw::{prelude::*, HeaderBar};
-use clap::Command;
+use clap::{Arg, Args, Command};
 use gtk::{
     gdk, Align, Box, Entry, Label, ListBox, ListBoxRow, Orientation, PolicyType, ScrolledWindow,
 };
@@ -11,20 +11,36 @@ use std::rc::Rc;
 const APP_ID: &str = "net.koteya.pipemenu";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+struct AppOptions {
+    window_title: String,
+}
+
 fn main() -> glib::ExitCode {
-    let _cli = Command::new("pipemenu")
+    let cli = Command::new("pipemenu")
         .author("https://github.com/soanvig/pipemenu")
         .version(VERSION)
         .about("Gnome (GTK4 + libadwaita) dmenu alternative")
+        .arg(
+            Arg::new("title")
+                .long("title")
+                .short('t')
+                .value_name("TITLE")
+                .help("set window title")
+                .default_value("pipemenu"),
+        )
         .override_usage("<stdin> | pipemenu\tEXAMPLE: ls | pipemenu")
         .get_matches();
 
+    let app_options = AppOptions {
+        window_title: cli.get_one::<String>("title").unwrap().to_string(),
+    };
+
     let app = Application::builder().application_id(APP_ID).build();
-    app.connect_activate(build_ui);
-    app.run()
+    app.connect_activate(move |app| build_ui(app, &app_options));
+    app.run_with_args::<glib::GString>(&[])
 }
 
-fn build_ui(app: &Application) {
+fn build_ui(app: &Application, options: &AppOptions) {
     let selected_entry = Rc::new(Cell::new(0));
     let entries: Vec<String> = io::stdin().lines().map(|line| line.unwrap()).collect();
 
@@ -50,7 +66,7 @@ fn build_ui(app: &Application) {
 
     let window = ApplicationWindow::builder()
         .application(app)
-        .title("pipemenu")
+        .title(&options.window_title)
         .content(&root)
         .default_width(1000)
         .default_height(600)

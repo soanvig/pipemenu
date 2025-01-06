@@ -12,6 +12,12 @@ ls | pipemenu | xargs xdg-open
 
 ![alt text](screenshot.png)
 
+### Help & options
+
+```sh
+pipemenu -h
+```
+
 ## Installation
 
 ### Prebuilt binary
