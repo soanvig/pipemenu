@@ -13,6 +13,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 struct AppOptions {
     window_title: String,
+    prompt: Option<String>,
 }
 
 fn main() -> glib::ExitCode {
@@ -28,11 +29,19 @@ fn main() -> glib::ExitCode {
                 .help("set window title")
                 .default_value("pipemenu"),
         )
+        .arg(
+            Arg::new("prompt")
+                .long("prompt")
+                .short('p')
+                .value_name("PROMPT")
+                .help("set prompt text"),
+        )
         .override_usage("<stdin> | pipemenu\tEXAMPLE: ls | pipemenu")
         .get_matches();
 
     let app_options = AppOptions {
         window_title: cli.get_one::<String>("title").unwrap().to_string(),
+        prompt: cli.get_one::<String>("prompt").cloned(),
     };
 
     let app = Application::builder().application_id(APP_ID).build();
@@ -45,7 +54,21 @@ fn build_ui(app: &Application, options: &AppOptions) {
     let entries: Vec<String> = io::stdin().lines().map(|line| line.unwrap()).collect();
 
     let search = Entry::new();
+    search.set_hexpand(true);
     let entry_list = ListBox::new();
+
+    let search_row = Box::new(Orientation::Horizontal, 12);
+
+    let search_prompt = options
+        .prompt
+        .as_ref()
+        .map(|prompt| Label::new(Some(prompt)));
+
+    if let Some(search_prompt) = search_prompt {
+        search_row.append(&search_prompt);
+    }
+
+    search_row.append(&search);
 
     let entry_list_scroll = ScrolledWindow::builder()
         .hscrollbar_policy(PolicyType::Never)
@@ -57,7 +80,7 @@ fn build_ui(app: &Application, options: &AppOptions) {
     content_box.set_property("margin-start", 24);
     content_box.set_property("margin-end", 24);
     content_box.set_property("margin-bottom", 24);
-    content_box.append(&search);
+    content_box.append(&search_row);
     content_box.append(&entry_list_scroll);
 
     let root = Box::new(Orientation::Vertical, 24);
