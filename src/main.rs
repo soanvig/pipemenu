@@ -127,14 +127,19 @@ fn connect_search_change(
     selected_entry: Rc<Cell<i32>>,
 ) {
     search.connect_changed(move |search| {
-        let text = search.buffer().text().to_string();
+        let text = search.buffer().text().to_string().to_lowercase();
 
-        let filtered = entries
+        let mut filtered: Vec<(&String, usize)> = entries
             .iter()
-            .filter(|item| item.to_lowercase().contains(&text.to_lowercase()))
+            .map(|item| (item, textdistance::str::lcsseq(&item.to_lowercase(), &text)))
             .collect();
 
-        rebuild_entry_list(&entry_list, &filtered);
+        filtered.sort_by(|(_, d1), (_, d2)| d2.cmp(d1));
+
+        rebuild_entry_list(
+            &entry_list,
+            &filtered.iter().map(|(entry, _)| entry).collect(),
+        );
 
         selected_entry.set(0);
         entry_list_scroll.vadjustment().set_value(0.);
