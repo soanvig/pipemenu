@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/soanvig/pipemenu/compare/v0.3.0...v0.4.0) (2025-01-18)
+
+
+### Features
+
+* improve search/filtering algorithm ([#15](https://github.com/soanvig/pipemenu/issues/15)) ([3bbc91f](https://github.com/soanvig/pipemenu/commit/3bbc91ff3579deb252879409f41ae0bc3a86484e)), closes [#4](https://github.com/soanvig/pipemenu/issues/4)
+
 ## [0.3.0](https://github.com/soanvig/pipemenu/compare/v0.2.0...v0.3.0) (2025-01-06)
 
 
