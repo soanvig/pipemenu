@@ -5,6 +5,7 @@ use gtk::{
     gdk, Align, Box, Entry, Label, ListBox, ListBoxRow, Orientation, PolicyType, ScrolledWindow,
 };
 use std::cell::Cell;
+use std::cmp::Ordering;
 use std::io;
 use std::rc::Rc;
 
@@ -129,16 +130,32 @@ fn connect_search_change(
     search.connect_changed(move |search| {
         let text = search.buffer().text().to_string().to_lowercase();
 
-        let mut filtered: Vec<(&String, usize)> = entries
+        let mut filtered: Vec<(&String, usize, Ordering)> = entries
             .iter()
-            .map(|item| (item, textdistance::str::lcsseq(&item.to_lowercase(), &text)))
+            .map(|item| (item, item.to_lowercase()))
+            .map(|(item, lowercased)| {
+                (
+                    item,
+                    textdistance::str::lcsseq(&lowercased, &text),
+                    if lowercased.contains(&text) {
+                        Ordering::Greater
+                    } else {
+                        Ordering::Equal
+                    },
+                )
+            })
             .collect();
 
-        filtered.sort_by(|(_, d1), (_, d2)| d2.cmp(d1));
+        filtered.sort_by(
+            |(_, d1, exact1), (_, d2, exact2)| match exact2.cmp(exact1) {
+                Ordering::Equal => d2.cmp(d1),
+                v => v,
+            },
+        );
 
         rebuild_entry_list(
             &entry_list,
-            &filtered.iter().map(|(entry, _)| entry).collect(),
+            &filtered.iter().map(|(entry, _, _)| entry).collect(),
         );
 
         selected_entry.set(0);
