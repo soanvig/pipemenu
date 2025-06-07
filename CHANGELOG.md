@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/soanvig/pipemenu/compare/v0.4.0...v0.4.1) (2025-06-07)
+
+
+### Bug Fixes
+
+* show exact matches on top of the list ([ee6d598](https://github.com/soanvig/pipemenu/commit/ee6d5986e6517c3c2e50573de6471484f744256f)), closes [#17](https://github.com/soanvig/pipemenu/issues/17)
+
 ## [0.4.0](https://github.com/soanvig/pipemenu/compare/v0.3.0...v0.4.0) (2025-01-18)
 
 
