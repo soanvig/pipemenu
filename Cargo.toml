@@ -1,7 +1,7 @@
 [package]
 name = "pipemenu"
 version = "0.4.1"
-edition = "2021"
+edition = "2024"
 description = "Gnome (GTK4 + libadwaita) dmenu alternative"
 license = "GPL-3.0"
 repository = "https://github.com/soanvig/pipemenu"
