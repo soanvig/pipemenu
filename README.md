@@ -30,6 +30,28 @@ After that you need to:
 2. make it executable: `chmod +x pipemenu`
 3. move it to a location included in your `$PATH` environment variable (for example: `/usr/local/bin` [requires sudo]. To check available paths use your terminal: `echo $PATH`)
 
+### NixOS/flakes
+
+1. Add flake input:
+```nix
+inputs = {
+  pipemenu = {
+    url = "github:soanvig/pipemenu";
+  };
+}
+```
+2. Add package to your packages section (note: only `x86_64-linux` system is being built in flake):
+```nix
+environment.systemPackages = [
+  inputs.pipemenu.packages.${system}.default
+]
+
+# or for home manager:
+home.packages = [
+  inputs.pipemenu.packages.${system}.default
+]
+```
+
 ### Rust/Cargo
 
 Install dependencies listed in [Development section](#development) (`cargo` builds package on your system), and then:
